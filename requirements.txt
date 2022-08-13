@@ -1,0 +1,4 @@
+apache-airflow==2.3.3
+apache-airflow-providers-postgres==5.1.0
+airflow-provider-great-expectations==0.1.4
+apache-airflow-providers-cncf-kubernetes==4.2.0
