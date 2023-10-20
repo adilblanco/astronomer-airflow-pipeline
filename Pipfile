@@ -4,9 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-apache-airflow = {extras = ["amazon", "postgres"], version = "==2.3.3"}
+apache-airflow = {extras = ["postgres"], version = "==2.3.3"}
 apache-airflow-providers-postgres = "==5.1.0"
-airflow-provider-great-expectations = "==0.1.4"
 apache-airflow-providers-cncf-kubernetes = "==4.2.0"
 
 [dev-packages]
