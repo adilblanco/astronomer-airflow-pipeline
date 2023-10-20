@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b27706a641ba93755465f7584cabcb3b820be3b9dece6f5acee8d59cb3e8b819"
+            "sha256": "a0e34de627e3e4b6cc3772334caf7dd74b8a44419de946199d326205a0031c63"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -135,6 +135,7 @@
         },
         "apache-airflow": {
             "extras": [
+                "docker",
                 "postgres"
             ],
             "hashes": [
@@ -160,6 +161,13 @@
             ],
             "markers": "python_version ~= '3.7'",
             "version": "==1.4.0"
+        },
+        "apache-airflow-providers-docker": {
+            "hashes": [
+                "sha256:0606906d5b6d6775a61effd0f65c7a317667ac0b59098ae96da3ca1f187a5590",
+                "sha256:aa2e74fdce817a5d1137c156b420f9a21e0428d179858e09666c9448b64cc20a"
+            ],
+            "version": "==3.6.0"
         },
         "apache-airflow-providers-ftp": {
             "hashes": [
@@ -555,6 +563,14 @@
             ],
             "markers": "python_version >= '3.8' and python_version < '4.0'",
             "version": "==2.4.2"
+        },
+        "docker": {
+            "hashes": [
+                "sha256:aa6d17830045ba5ef0168d5eaa34d37beeb113948c413affe1d5991fc11f9a20",
+                "sha256:aecd2277b8bf8e506e484f6ab7aec39abe0038e29fa4a6d3ba86c3fe01844ed9"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==6.1.3"
         },
         "docutils": {
             "hashes": [
@@ -1429,6 +1445,14 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.8.2"
+        },
+        "python-dotenv": {
+            "hashes": [
+                "sha256:a8df96034aae6d2d50a4ebe8216326c61c3eb64836776504fcca410e5937a3ba",
+                "sha256:f5971a9226b701070a4bf2c38c89e5a3f0d64de8debda981d1db98583009122a"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==1.0.0"
         },
         "python-nvd3": {
             "hashes": [

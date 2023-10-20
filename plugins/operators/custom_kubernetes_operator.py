@@ -8,7 +8,7 @@ def CustomKubernetesPodOperator(name: str, image: str, dag: DAG, **kwargs) -> Ku
     
     namespace = configuration.get('kubernetes', 'NAMESPACE')
     print("namespace: ", namespace)
-    in_cluster = namespace not in ['default', 'airflow-dev']
+    in_cluster = namespace != 'default'
     config_file = None if in_cluster else '/usr/local/airflow/include/.kube/config'
 
     parameters = {
