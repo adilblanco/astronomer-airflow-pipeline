@@ -31,7 +31,7 @@ s3_env_vars = {
     "S3_BUCKET": "{{ get_connection('s3_conn').schema }}",
     }
 
-data = {
+urban_infrastructures = {
     "urban-green-streets-data": {
         "prefix": "urban-green-streets",
         "url": "https://data.montreal.ca/dataset/ab3ce7bb-09a7-49d7-8f76-461ed4c39937/resource/15883136-0180-4061-9860-d7ce3d46c73c/download/ruelles-vertes.geojson",
@@ -58,27 +58,35 @@ data = {
     }
 }
 
+outdoor_fountains = {
+    "outdoor-drinking-fountains-data": {
+        "prefix": "outdoor-drinking-fountains",
+        "url": "https://donnees.montreal.ca/dataset/3ff400f3-63cd-446d-8405-842383377fb8/resource/26659739-540d-4fe2-8107-5f35ab7e807c/download/fontaine_eau_potable_v2018.csv"
+    }
+}
+
 with dag:
     
     begin = DummyOperator(task_id="begin")
     end = DummyOperator(task_id="end")
 
+    key, value = next(iter(outdoor_fountains.items()))
     retrieve_raw_outdoor_drinking_fountains_data = CustomKubernetesPodOperator(
         dag=dag,
-        name="retrieve-raw-outdoor-drinking-fountains-data-pod", 
+        name=f"retrieve-{key}-pod",
         image="inf7225/fountains-optimizer-img:1.0.0",
         env_vars={**s3_env_vars},
         cmds=["python", "fetch_csv.py"],
         arguments=[
             "--command", "fetch_csv",
-            "--file_key", "raw-outdoor-drinking-fountains-data.pickle",
-            "--url", "https://donnees.montreal.ca/dataset/3ff400f3-63cd-446d-8405-842383377fb8/resource/26659739-540d-4fe2-8107-5f35ab7e807c/download/fontaine_eau_potable_v2018.csv",
+            "--file_key", f"raw-{value['prefix']}.pickle",
+            "--url", f"{value['url']}"
             ]
         )
 
     
     with TaskGroup(group_id="retrieve-raw-urban-data-pod") as retrieve_raw_urban_data_pod:
-        for key, value in data.items():
+        for key, value in urban_infrastructures.items():
             task = CustomKubernetesPodOperator(
                 dag=dag,
                 name=f"retrieve-{key}-pod",
@@ -91,5 +99,6 @@ with dag:
                     "--url", f"{value['url']}"
                     ]
                 )
+
 
     begin >> [retrieve_raw_outdoor_drinking_fountains_data, retrieve_raw_urban_data_pod] >> end
