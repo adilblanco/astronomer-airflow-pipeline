@@ -96,7 +96,6 @@ with dag:
                     "--command", "transform_data",
                     "--input_file_key", f"raw-{value['prefix']}.pickle",
                     "--output_file_key", f"{value['prefix']}.pickle",
-                    "--url", f"{value['url']}"
                     ]
                 )
 
