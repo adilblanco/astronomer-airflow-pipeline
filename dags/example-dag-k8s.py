@@ -16,7 +16,7 @@ args = {
 dag = DAG(
         dag_id='example_dag_k8s', 
         default_args=args,
-        schedule_interval='0 0 * * 0',
+        schedule_interval=None,
         catchup=False,
         tags=['k8s', 'custom_k8s_pod_operator']
     )
